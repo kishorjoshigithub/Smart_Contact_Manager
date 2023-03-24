@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard - Smart Contact Manager</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body">
+					<h1 class="text-center">Add Contact</h1>
+					<div class="container-fluid mt-1">
+						<div class="row">
+							<div class="col-md-10 offset-md-1">
+
+
+								<form action="#" th:object="${contact}"
+									th:action="@{/user/process-contact}" method="post" class="mt-2"
+									enctype="multipart/form-data">
+
+									<!-- First Name Field -->
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fas fa-plus"></i>
+											</div>
+										</div>
+										<input type="text" id="firstName" name="name"
+											placeholder="Enter name here" class="form-control" required />
+									</div>
+
+									<!-- Second Name Field -->
+									<div class="input-group mt-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fas fa-user-alt"></i>
+											</div>
+										</div>
+										<input type="text" id="secondName" name="secondName"
+											placeholder="Enter second name here" class="form-control"
+											required />
+									</div>
+
+
+									<!-- Phone Field -->
+									<div class="input-group mt-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fas fa-phone"></i>
+											</div>
+										</div>
+										<input type="number" id="phone" name="phone"
+											placeholder="Enter phone number here..." class="form-control"
+											required />
+									</div>
+
+
+									<!-- Email Field -->
+									<div class="input-group mt-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fas fa-envelope"></i>
+											</div>
+										</div>
+										<input type="email" id="email" name="email"
+											placeholder="Enter email here..." class="form-control"
+											required />
+									</div>
+
+
+									<!-- Work Field -->
+									<div class="input-group mt-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fas fa-briefcase"></i>
+											</div>
+										</div>
+										<input type="text" id="work" name="work"
+											placeholder="Enter your work here..." class="form-control"
+											required />
+									</div>
+
+
+									<!-- Contact Description Field -->
+									<div class="form-group mt-3">
+										<textarea id="description" name="description"
+											placeholder="Enter contact description here..."
+											class="form-control" rows="8"></textarea>
+									</div>
+
+
+
+									<!-- Contact Image Field -->
+									<div class="custom-file">
+										<input type="file" name="profileImage" class="form-control"
+											required />
+									</div>
+									<div class="contrainer m-4 text-center">
+										<button class="btn btn-outline-success" type="submit">Save
+											Contact</button>
+										<button class="btn btn-outline-info" type="reset">Clear</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+		<script>
+			CKEDITOR.replace('description');
+		</script>
+		<script>
+		
+		$(document).ready(()=>{
+			$('.item').removeClass('active');
+			$('#add-link').addClass("active");
+			
+			
+		});
+		
+		
+		
+		
+		</script>
+
+	</section>
+</body>
+</html>
