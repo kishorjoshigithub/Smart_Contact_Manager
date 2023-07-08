@@ -27,13 +27,16 @@ public class User {
 	@NotBlank(message = "Name field is required !!")
 	@Size(min = 2, max = 20, message = "min 2 and max 20 character are allowed !!")
 	private String name;
-	@Column(unique = false)
+	@Column(unique = true)
+	@NotBlank(message = "required**")
 	private String email;
+	@NotBlank(message = "required**")
 	private String password;
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
 	@Column(length = 500)
+	@NotBlank(message = "required**")
 	private String about;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true ,mappedBy = "user")

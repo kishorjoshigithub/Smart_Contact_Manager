@@ -1,6 +1,7 @@
 package com.smart.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +14,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,22 +23,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.smart.dao.ContactRepository;
 import com.smart.dao.UserRepository;
 import com.smart.entities.Contact;
 import com.smart.entities.User;
 import com.smart.helper.Message;
+import com.smart.services.EmailService;
+import com.smart.entities.*;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -255,5 +264,43 @@ public class UserController {
 		return "redirect:/user/index";
 		
 	}
+	
+	// open email form handler
+		@GetMapping("/sendemail")
+		public String openEmail() {
+			return "normal/send";
+		}
+		@PostMapping("/mailsend")
+		public String sendEmail(@RequestParam("subject") String subject,
+		                        @RequestParam("message") String message,
+		                        @RequestParam("to") String to,
+		                        @RequestParam("attachment") MultipartFile attachment,
+		                        Model model) throws IOException {
+		    boolean result;
+		    
+		    if (attachment != null && !attachment.isEmpty()) {
+		        result = this.emailService.sendEmail(subject, message, to, attachment);
+		    } else {
+		        result = this.emailService.sendEmail(subject, message, to, null);
+		    }
+		    
+		    if (result) {
+		        model.addAttribute("message", "Email is sent successfully");
+		        model.addAttribute("successMessage", "Email sent successfully");
+		        return "redirect:/user/sendemail#success";
+
+		        
+		    } else {
+		        model.addAttribute("message", "Email not sent");
+		        model.addAttribute("errorMessage", "Error sending email");
+		        return "redirect:/user/sendemail#error";
+
+		    }
+		    
+		  //  return "redirect:/user/sendemail";
+		}
+
+
+
 
 }

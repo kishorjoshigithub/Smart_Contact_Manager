@@ -58,25 +58,21 @@
 
 								<td><img src="" class="my_profile_picture"
 									th:src="@{'/img/'+${c.image}}" alt="Profile photo display">
+									<span th:text="${c.name}"></span>
+								</td>
 
-
-
-									<span th:text="${c.name}"></span></td>
-
-								<td><a href="" th:href="@{'/user/'+${c.cid}+'/contact/'}">
-
+								<td>
+									<a href="#" th:href="@{'/user/'+${c.cid}+'/contact/'}" onclick="setToField('${c.email}')">
 										<span th:text="${c.email}"></span>
-
-
-								</a></td>
+									</a>
+								</td>
 
 								<td th:text="${c.phone}">@mdo</td>
 								<td>
-
-
 									<form method="post"
 										th:action="@{'/user/update-contact/'+${c.cid}}" class="mt-2">
 										<button type="submit" class="btn btn-primary btn-sm">Update</button>
+										
 									</form>
 								</td>
 							</tr>
@@ -103,30 +99,26 @@
 					</ul>
 				</nav>
 
+				<script>
+					function setToField(email) {
+						document.getElementById("to").value =email;
+					}
+				</script>
 
-
-
+				<div class="text-center">
+					<a class="btn btn-outline-info" type="button" href="#"
+						th:href="@{'/user/index'}">Back</a>
+				</div>
 			</div>
-
-
-
 		</div>
-		<script>
-		
-		$(document).ready(()=>{
-			$('.item').removeClass('active');
-			$('#contacts-link').addClass("active");
-			
-			
-		});
-		
-		
-		
-		
-		</script>
 
+		<script>
+			$(document).ready(() => {
+				$('.item').removeClass('active');
+				$('#contacts-link').addClass("active");
+			});
+		</script>
 
 	</section>
 </body>
-
 </html>

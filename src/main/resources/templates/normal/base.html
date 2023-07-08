@@ -67,9 +67,12 @@
 			href="#" th:href="@{/user/add-contact}" class="item"><i
 			class="fas fa-pencil-alt mr-1"></i>Add Contact</a> <a id="profile-link"
 			href="#" th:href="@{/user/profile}" class="item"><i
-			class="fas fa-user-circle mr-1"></i>Your Profile</a> <a href="#" th:href="@{/user/settings}"
-			id="settings-link" class="item"><i class="fas fa-cogs mr-1"></i>Settings</a>
-		<a href="#" th:href="@{/logout}" class="item"><i
+			class="fas fa-user-circle mr-1"></i>Your Profile</a> <a href="#"
+			th:href="@{/user/sendemail}" class="item"><i
+			class="fa-solid fa-envelope mr-1"></i>Email Service</a> <a href="#"
+			th:href="@{/user/settings}" id="settings-link" class="item"><i
+			class="fas fa-cogs mr-1"></i>Settings</a> <a href="#"
+			th:href="@{/logout}" class="item"><i
 			class="fas fa-sign-out-alt mr-1"></i>Logout</a>
 
 		<div class="divider"></div>
@@ -93,8 +96,9 @@
 
 			</div>
 
-		</div>
 
+		</div>
+		<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
 
 		<div th:replace="${content}"></div>
 

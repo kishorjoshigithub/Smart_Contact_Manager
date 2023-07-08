@@ -70,9 +70,16 @@
 							class="btn btn-danger btn-sm btn-block">Delete</button>
 
 						<form method="post"
-							th:action="@{'/user/update-contact/'+${contact.cid}}" class="mt-2">
+							th:action="@{'/user/update-contact/'+${contact.cid}}"
+							class="mt-2">
 							<button type="submit" class="btn btn-primary btn-sm btn-block">Update</button>
 						</form>
+
+						<div class="text-center">
+
+							<a class="btn btn-link float-right" type="button" href="#"
+								th:href="@{'/user/show-contacts/0'}">Back</a>
+						</div>
 
 					</div>
 
